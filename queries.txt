@@ -1,0 +1,7 @@
+create table adult (age int, workclass text, fnlwgt int, education text, education_num int, marital_status text, occupation text, relationship text, race text, sex text, capital_gain  int, capital_loss int, hours_per_week int, native_country text, income text);
+\copy adult (age, workclass, fnlwgt, education, education_num, marital_status, occupation, relationship, race, sex, capital_gain, capital_loss, hours_per_week, native_country, income) FROM 'C:\Users\dhruv\Downloads\Jupyter notebook\adult_data.csv' WITH DELIMITER ',' NULL AS '';
+alter table adult add row_id serial;
+drop table IF EXISTS married_adult cascade;
+create table married_adult as select * from adult where marital_status= ' Married-civ-spouse' or marital_status= ' Married-AF-spouse' or marital_status= ' Married-spouse-absent' or marital_status= ' Separated';
+drop table IF EXISTS unmarried_adult cascade;
+create table unmarried_adult as select * from adult where marital_status= ' Never-married' or marital_status= ' Widowed' or marital_status= ' Divorced';
